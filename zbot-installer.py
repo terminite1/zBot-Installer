@@ -4,8 +4,6 @@
 import requests
 import os
 
-from tkinter import messagebox
-
 print("zBot Installer - by terminite")
 
 scriptdir = os.path.dirname(os.path.realpath(__file__))
