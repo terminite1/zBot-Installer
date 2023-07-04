@@ -1,54 +1,59 @@
 # (Unofficial?) zBot installer. Made by terminite (@terminite)
 # FOR ZBOT PRO ONLY!!!!!!!!
-
-import requests
 import os
 
 print("zBot Installer - by terminite")
 
+try:
+    import requests
+except ModuleNotFoundError:
+    print("Requests is not installed. Installing...")
+    os.system("py -m pip install requests")
+    os.system("pip install requests")
+    print("\nFinished. Please restart the installer.")
+    print("If this error reoccurs, something has gone wrong. There may be something wrong with your Python installation.")
+    os.system("pause")
+    exit()
+
 scriptdir = os.path.dirname(os.path.realpath(__file__))
 
-# process for setting up the dir
-dircheck = input("Would you like to use the default installation directory? (y/n): ")
-if dircheck == "y":
-    gddir = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Geometry Dash"
-else:
-    gddir = input("Geometry Dash Directory (with executable): ")
-    if not os.path.isdir(gddir):
-        print("The Geometry Dash Directory you entered is not a directory. Please try again.")
-        os.system("pause")
-        exit()
-    else:
-        if gddir == "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Geometry Dash":
-            print("That's the default directory. But okay...")
-        if os.path.isfile(os.path.join(gddir, "GeometryDash.exe")):
-            print("Found GeometryDash.exe")
-        else:
-            print("Could not find GeometryDash.exe. Please try again.")
-            os.system("pause")
-            exit()
-print(f"Using Geometry Dash Directory: {gddir}\n")
-
+gddir = None
 move = False
+
+def directory_setup():
+    global gddir
+    dircheck = input("Would you like to use the default installation directory? (y/n): ")
+    if dircheck == "y":
+        gddir = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Geometry Dash"
+    else:
+        gddir = input("Geometry Dash Directory (with executable): ")
+        if not os.path.isdir(gddir):
+            print("The Geometry Dash Directory you entered is not a directory. Please try again.")
+            os.system("pause")
+            directory_setup()
+        else:
+            if gddir == "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Geometry Dash":
+                print("That's the default directory. But okay...")
+            if os.path.isfile(os.path.join(gddir, "GeometryDash.exe")):
+                print("Found GeometryDash.exe")
+            else:
+                print("Could not find GeometryDash.exe. Please try again.")
+                os.system("pause")
+                directory_setup()
+    print(f"Using Geometry Dash Directory: {gddir}\n")
+    start()
 
 def start():
     global move
     if os.path.isfile(os.path.join(gddir, "hackpro.dll")):
-        ans = input("Found hackproldr.dll inside of GD's directory. Do you happen to use Mega Hack v7 (not v6)? (y/n): ")
-        if ans == 'y':
-            print("Please uninstall Mega Hack v7 before installing zBot.")
+        print("Found hackpro.dll. Checking if it's Mega Hack v7...")
+        if os.path.isfile(os.path.join(gddir, "hackproldr.dll")):
+            print("Mega Hack v7 found. Please uninstall Mega Hack v7 before installing zBot.")
             os.system("pause")
             exit()
         else:
-            ans2 = input("Are you using Mega Hack v6? (y/n): ")
-            if ans2 == 'y':
-                print("Alright. Moving hackpro.dll to adaf-dll...")
-                move = True
-            else:
-                print("What? Then how do you have hackpro.dll?")
-                print("Please uninstall Mega Hack v7 before installing zBot.")
-                os.system("pause")
-                exit()
+            print("Mega Hack v6 found. Continuing...")
+            move = True
             download_zbot()
     else:
         print("Mega Hack not found. Continuing...")
@@ -126,4 +131,4 @@ def finished_setup():
     print("If you have any more issues, please read #faq in the Discord server.")
     os.system("pause")
 
-start()
+directory_setup()
