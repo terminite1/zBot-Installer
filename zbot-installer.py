@@ -1,4 +1,4 @@
-
+__VERSION__ = "1.2.1"
 # (Unofficial?) zBot installer. Made by terminite (@terminite)
 # For zBot v2.0.0 and Free Trial | ONLY
 
