@@ -3,7 +3,8 @@
 
 Automatically installs zBot using HTTP, OS and GDDLLLoader
 
-Please make sure you have Requests installed, otherwise install using pip
+Please make sure you have Requests installed
+If you don't the script will install it for you anyway.
 
 ## Methods of installing requests:
 1. pip install -r requirements.txt
