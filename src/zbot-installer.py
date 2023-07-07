@@ -1,24 +1,12 @@
-__VERSION__ = "1.2.1"
+__VERSION__ = "1.2.2"
 # (Unofficial?) zBot installer. Made by terminite (@terminite)
 # For zBot v2.0.0 and Free Trial | ONLY
 
 import os
+import requests
 import winreg # for hwid checking
 
-print("[***] zBot Installer - by terminite\n\n")
-
-try:
-    import requests
-except ModuleNotFoundError:
-    print("Requests is not installed. Installing...")
-    os.system("py -m pip install requests")
-    os.system("pip install requests")
-    print("\n[!] Finished. Please restart the installer.")
-    print("[!] If this error reoccurs, there may be something wrong with your Python installation.")
-    os.system("pause")
-    exit()
-
-scriptdir = os.path.dirname(os.path.realpath(__file__))
+print(f"[***] zBot Installer {__VERSION__} - by terminite\n\n")
 
 gddir = None
 move = False
@@ -30,12 +18,12 @@ def check_free():
     global free
     if usefree == "1":
         free = True
-        print("[!] Using free version of zBot.\n")
+        print("[!] Free Trial Selected\n")
     directory_setup()
 
 def directory_setup():
     global gddir
-    dircheck = input("[*] Select Directory: Default (1) or Custom (2) ")
+    dircheck = input("[*] Select Directory: Default (1) or Custom (2): ")
     if dircheck == "1":
         gddir = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Geometry Dash"
     else:
@@ -47,27 +35,27 @@ def directory_setup():
             if gddir == "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Geometry Dash":
                 print("[!] That's the default directory. But okay...")
             if os.path.isfile(os.path.join(gddir, "GeometryDash.exe")):
-                print("Found GeometryDash.exe")
+                print("{*] Found GeometryDash.exe")
             else:
                 print("[!] Could not find GeometryDash.exe. Please try again.\n")
                 directory_setup()
-    print(f"Using Geometry Dash Directory: {gddir}\n")
+    print(f"[*] Using Geometry Dash Directory: {gddir}\n")
     start()
 
 def start():
     global move
     if os.path.isfile(os.path.join(gddir, "hackpro.dll")):
-        print("Found hackpro.dll. Checking if it's Mega Hack v7...")
+        print("[*] Found hackpro.dll. Checking if it's Mega Hack v7...")
         if os.path.isfile(os.path.join(gddir, "hackproldr.dll")):
             print("[!] Mega Hack v7 found. Please uninstall Mega Hack v7 before installing zBot.")
             os.system("pause")
             exit()
         else:
-            print("Mega Hack v6 found. Continuing...")
+            print("[*] Mega Hack v6 found. Continuing...")
             move = True
             download_zbot()
     else:
-        print("Mega Hack not found. Continuing...")
+        print("[*] Mega Hack not found. Continuing...")
         download_zbot()
 
 def download_zbot():
@@ -89,17 +77,17 @@ def download_zbot():
         exit()
     else:
         if not os.path.isdir(os.path.join(gddir, "adaf-dll")):
-            print("adaf-dll not found, creating...")
+            print("[*] adaf-dll not found, creating...")
             os.mkdir(os.path.join(gddir, "adaf-dll"))
         with open(os.path.join(gddir, "adaf-dll", zbotname), "wb") as f:
             f.write(req.content)
-            print(f"Installed zBot inside of {os.path.join(gddir, 'adaf-dll')}")
+            print(f"[*] Installed zBot inside of {os.path.join(gddir, 'adaf-dll')}")
         if move:
-            print("Moving hackpro.dll to adaf-dll...")
+            print("[*] Moving hackpro.dll to adaf-dll...")
             os.rename(os.path.join(gddir, "hackpro.dll"), os.path.join(gddir, "adaf-dll", "hackpro.dll"))
-            print("Moved hackpro.dll to adaf-dll")
-            print("Installed Mega Hack v6 for GDDLLLoader")
-    print("zBot installation complete. Installing GDDLLLoader...\n")
+            print("[*] Moved hackpro.dll to adaf-dll")
+            print("[*] Installed Mega Hack v6 for GDDLLLoader")
+    print("[*] zBot installation complete. Installing GDDLLLoader...\n")
     download_dll_loader()
 
 def download_dll_loader():
@@ -113,7 +101,7 @@ def download_dll_loader():
     else:
         with open(os.path.join(gddir, "GDDLLLoader.dll"), "wb") as f:
             f.write(req.content)
-            print(f"Installed GDDLLLoader inside of {gddir}")
+            print(f"[*] Installed GDDLLLoader inside of {gddir}")
     req = requests.get(extensionfile)
     if req.status_code != 200:
         print("[!] Could not download libExtensions. Please try again later.")
@@ -121,9 +109,9 @@ def download_dll_loader():
     else:
         with open(os.path.join(gddir, "libExtensions.dll"), "wb") as f:
             f.write(req.content)
-            print(f"Installed libExtensions inside of {gddir}")
+            print(f"[*] Installed libExtensions inside of {gddir}")
 
-    print("GDDLLLoader installation complete.\n")
+    print("[*] GDDLLLoader installation complete.\n")
     if free:
         finished_setup()
     else:
@@ -143,19 +131,19 @@ def check_key():
         check_key()
     else:
         if req.text == 'None':
-            print("Valid key! Creating key file...")
-            with open(os.path.join(gddir, "key.txt"), "w") as f:
+            print("[*] Valid key! Creating key file...")
+            with open(os.path.join(gddir, "key.txt"), "w", encoding="utf-8") as f:
                 f.write(key)
-                print("Created key file.\n")
+                print("[*] Created key file.\n")
                 f.close()
                 finished_setup()
         else:
             print("[!] Key already in use. checking for HWID match...\n")
             if req.text == get_hwid():
-                print("HWID match! Creating key file...")
-                with open(os.path.join(gddir, "key.txt"), "w") as f:
+                print("[*] HWID match! Creating key file...")
+                with open(os.path.join(gddir, "key.txt"), "w", encoding="utf-8") as f:
                     f.write(key)
-                    print("Created key file.\n")
+                    print("[*] Created key file.\n")
                     f.close()
                     finished_setup()
             else:

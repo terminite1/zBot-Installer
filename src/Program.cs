@@ -1,4 +1,4 @@
-﻿// Version 1.2.1 - C# Edition
+﻿// Version 1.2.2 - C# Edition
 // Date: 2023/7/7 Friday
 
 using System;
@@ -10,12 +10,14 @@ using Microsoft.Win32;
 
 public class Program
 {
+    static string Version = "1.2.2";
+
     static string path = "";
     static bool move = false;
     static bool free = false;
     static void Main(string[] args)
     {
-        Console.WriteLine("[***] zBot Installer - by terminite\n\n");
+        Console.WriteLine($"[***] zBot Installer {Version} - by terminite (C# Version)\n\n");
 
 
         static void CheckFree(string[] args)
@@ -26,6 +28,9 @@ public class Program
             {
                 free = true;
                 Console.WriteLine("[*] Free Trial Selected");
+            } else
+            {
+                Console.WriteLine("[*] Pro Selected");
             }
             DirectorySetup(args);
         }
@@ -227,6 +232,7 @@ public class Program
             Console.WriteLine("[*] zBot Installation complete. Please open Geometry Dash.\n");
             Console.WriteLine("[*] Opening the game may give you a virus detection, it is a false positive and you have to whitelist it.");
             Console.WriteLine("[*] If you have any more issues or questions, please read the #faq channel in the Discord.\n");
+            Console.WriteLine("\n[*] And if you liked the program, please star the repo :)\n");
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
             Environment.Exit(0);
