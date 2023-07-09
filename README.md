@@ -7,7 +7,7 @@ Automatically installs zBot using GDDLLLoader
 Run the .exe, that's it
 
 ### If using Python version:
-Run the .py script
+Run the .py script,
 Make sure you have Requests installed
 If you don't, the script will install it for you anyway.
 
