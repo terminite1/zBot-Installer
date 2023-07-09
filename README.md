@@ -1,14 +1,22 @@
-# zBot-Installer
-## "Unofficial" zBot Installer made in Python
+# zBot Installer
+## "Unofficial" zBot Installer made in Python and C#
 
-Automatically installs zBot using HTTP, OS and GDDLLLoader
+Automatically installs zBot using GDDLLLoader
 
-Please make sure you have Requests installed
-If you don't the script will install it for you anyway.
+### If using C# version:
+Run the .exe, that's it
 
-## Methods of installing requests:
+### If using Python version:
+Run the .py script
+Make sure you have Requests installed
+If you don't, the script will install it for you anyway.
+
+### Methods of installing requests:
 1. pip install -r requirements.txt
 2. pip install requests
+3. run the script.
+
+if it still doesn't work, run `py -m pip install requests`
 
 Method 1 requires you installing the .txt file included in the repository
 
