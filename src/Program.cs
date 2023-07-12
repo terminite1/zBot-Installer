@@ -17,6 +17,7 @@ public class Program
     static bool free = false;
     static void Main(string[] args)
     {
+        Console.Title = "zBot Installer " + Version + " - C#";
         Console.WriteLine($"[***] zBot Installer {Version} - by terminite (C# Version)\n\n");
 
 
