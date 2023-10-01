@@ -1,3 +1,6 @@
+# Archived because zBot is now only for Geode.
+## Get Geode [here](https://geode-sdk.org)
+#
 # zBot Installer
 ## "Unofficial" zBot Installer made in Python and C#
 
